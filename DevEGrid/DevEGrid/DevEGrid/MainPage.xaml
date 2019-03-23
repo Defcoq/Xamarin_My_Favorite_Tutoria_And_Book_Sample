@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DevEGrid"
+             x:Class="DevEGrid.MainPage"
+             xmlns:dxGrid="clr-namespace:DevExpress.Mobile.DataGrid;assembly=DevExpress.Mobile.Grid.v18.2">
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+
+    <!--region #GridControl_Columns-->
+    <dxGrid:GridControl ItemsSource="{Binding Employees}" RowHeight="100">
+        <dxGrid:GridControl.Columns>
+            <dxGrid:ImageColumn FieldName="Photo" Width="100" />
+            <dxGrid:TemplateColumn FieldName="Name" Caption="Employee" Width="200" 
+		    					   IsReadOnly="true" AllowGroup="False" AllowSort="False">
+                <dxGrid:TemplateColumn.DisplayTemplate>
+                    <DataTemplate>
+                        <Grid BindingContext="{Binding Source}" Padding="0,15,0,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding Name}" Font="Bold, 18" Grid.Row="0" />
+                            <Label Text="{Binding Position, StringFormat = 'Title: {0}'}" Font="Small" Grid.Row="1"/>
+                            <Label Text="{Binding HireDate, StringFormat = 'Hire Date: {0:d}'}" Font="Small" Grid.Row="2" />
+                        </Grid>
+                    </DataTemplate>
+                </dxGrid:TemplateColumn.DisplayTemplate>
+            </dxGrid:TemplateColumn>
+            <dxGrid:NumberColumn FieldName="Phone" ContentAlignment="Center"/>
+            <dxGrid:TextColumn FieldName="Address" Width="170"/>
+            <dxGrid:DateColumn FieldName="BirthDate" DisplayFormat="d"/>
+            <dxGrid:PickerColumn FieldName="Access" Caption="Access Level" ContentAlignment="Center"/>
+            <dxGrid:SwitchColumn FieldName="OnVacation"/>
+        </dxGrid:GridControl.Columns>
+    </dxGrid:GridControl>
+    <!--endregion #GridControl_Columns-->
+
+</ContentPage>
