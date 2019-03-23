@@ -13,15 +13,24 @@
         <ToolbarItem Text="+"
                      Clicked="OnNoteAddedClicked" />
     </ContentPage.ToolbarItems>
+    <ContentPage.Content>
 
-    <ListView x:Name="listView"
+        <StackLayout>
+            <ListView x:Name="listView"
               Margin="{StaticResource PageMargin}"
               ItemSelected="OnListViewItemSelected">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding Text}"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Text}"
                           Detail="{Binding Date}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+          
+        </StackLayout>
+    </ContentPage.Content>
+   
+   
 </ContentPage>
