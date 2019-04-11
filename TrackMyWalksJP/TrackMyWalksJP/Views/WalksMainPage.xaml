@@ -9,7 +9,7 @@
         <ContentPage.Content>
         <StackLayout>
             <!--chap04 -->
-            <ListView x:Name="WalkEntriesListView"
+            <!--<ListView x:Name="WalkEntriesListView"
                           RowHeight="80" 
                           HasUnevenRows="true" 
                           SeparatorColor="#ddd" 
@@ -19,9 +19,34 @@
                         <ImageCell ImageSource="{Binding ImageUrl}" Text="{Binding Title}"  Detail="{Binding Description}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-            <!--chap 05-->
-            <!--<ListView x:Name="WalkEntriesListView" RowHeight="80" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
+            </ListView>-->
+            <!--chap 05 Originale-->
+          
+                <!--<ListView x:Name="WalkEntriesListView" RowHeight="80" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnEditItem" CommandParameter="{Binding .}" Text="Edit" IsDestructive="False" />
+                                    <MenuItem Clicked="OnDeleteItem" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout x:Name="cellLayout" Padding="10,5,10,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Image Aspect="AspectFit" Source="{Binding ImageUrl}"  VerticalOptions="FillAndExpand" />
+                                    <StackLayout x:Name="DetailsLayout" Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
+                                        <Label Text="{Binding Description}" FontAttributes="None" FontSize="12" TextColor="Blue" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+            <!-- END chap04 -->
+            <!--END chap 05 Originale-->
+            <!-- chap 05 modify-->
+            <ListView x:Name="WalkEntriesListView" RowHeight="80" HasUnevenRows="true" 
+                      SeparatorColor="#ddd"
+                      ItemTapped="myWalkEntries_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -29,9 +54,9 @@
                                 <MenuItem Clicked="OnEditItem" CommandParameter="{Binding .}" Text="Edit" IsDestructive="False" />
                                 <MenuItem Clicked="OnDeleteItem" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                             </ViewCell.ContextActions>
-                            <StackLayout x:Name="cellLayout" Padding="10,5,10,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <StackLayout x:Name="cellLayout"  Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                 <Image Aspect="AspectFit" Source="{Binding ImageUrl}"  VerticalOptions="FillAndExpand" />
-                                <StackLayout x:Name="DetailsLayout" Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
+                                <StackLayout x:Name="DetailsLayout"  HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
                                     <Label Text="{Binding Description}" FontAttributes="None" FontSize="12" TextColor="Blue" />
                                 </StackLayout>
@@ -39,7 +64,8 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
+            <!-- END chap 05 modify-->
 
         </StackLayout>
 

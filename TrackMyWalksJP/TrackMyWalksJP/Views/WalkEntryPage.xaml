@@ -7,6 +7,7 @@
         <ToolbarItem Text="Save" Clicked="SaveWalkItem_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
+        <!--Chap 04-->
         <!--<TableView Intent="Form">
             <TableView.Root>
                 <TableSection Title="Enter Walk Trail Information">
