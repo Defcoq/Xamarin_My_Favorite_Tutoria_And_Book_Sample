@@ -126,6 +126,28 @@ namespace TrackMyWalksJP.ViewModels
             return true;
         }
 
+        #region introdocted from chap 07 for get location
+        // Get the current device GPS location Coordinates
+        public async Task GetMyLocation()
+        {
+            // Get the current determined GPS position coordinates 
+            // from the device
+            var position = await new LocationService().GetCurrentPosition();
+
+            if (position == null) return;
+
+            // If we are Adding a new Walk Entry, update the Latitude 
+            // and Longitude Coordinates
+            if (App.SelectedItem.Latitude.Equals(0) && App.SelectedItem.Longitude.Equals(0))
+            {
+                Latitude = position.Latitude;
+                Longitude = position.Longitude;
+            }
+        }
+           
+
+        #endregion
+
         // Update each EntryCell on the WalkEntryPage with values from our Model
         public string Title
         {
@@ -166,8 +188,9 @@ namespace TrackMyWalksJP.ViewModels
         // Instance method to initialise the WalkEntryPageViewModel
         public override async Task Init()
         {
-            await Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(async() =>
             {
+                await GetMyLocation();
             });
         }
     }

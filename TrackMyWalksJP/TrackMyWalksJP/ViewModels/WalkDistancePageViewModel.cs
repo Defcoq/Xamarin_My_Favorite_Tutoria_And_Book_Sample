@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TrackMyWalksJP.Services;
+using Plugin.Geolocator.Abstractions;
 
 namespace TrackMyWalksJP.ViewModels
 {
@@ -32,8 +33,48 @@ namespace TrackMyWalksJP.ViewModels
 
         #endregion
 
-        #region chap 06
-        public WalkDistancePageViewModel(INavigationService navService) : base(navService)
+        #region coming from chap 07
+        // Initialise our location service variable that points to 
+        // our LocationService class
+        LocationService location;
+        public event EventHandler<PositionEventArgs> CoordsChanged;
+
+
+        // Instance method to get the current GPS location 
+        // Coordinates from device 
+              public async Task<Position> GetCurrentLocation()
+              {
+                  // Initialise our location service variable that points to 
+                  // our LocationService class
+                  location = new LocationService();
+                  location.PositionChanged += (sender, e) =>
+                  {
+                      // Raise our PositionChanged EventHandler, using 
+                      // the Coordinates
+                      CoordsChanged.Invoke(sender, e);
+                  };
+
+                // Get the current device GPS location coordinates
+                var position = await location.GetCurrentPosition();
+                              return position;
+              }
+
+                // Instance method to begin listening for changes in 
+                // GPS coordinates
+                public async void OnStartUpdate()
+                {
+                    await location.StartListening();
+                }
+
+                // Instance method to stop listening for changes 
+                // in location
+                public void OnStopUpdate()
+                {
+                    location.StopListening();
+                }
+#endregion
+#region chap 06
+public WalkDistancePageViewModel(INavigationService navService) : base(navService)
         {
         }
 
