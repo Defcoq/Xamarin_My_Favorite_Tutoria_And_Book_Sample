@@ -39,38 +39,78 @@ namespace TrackMyWalksJP.ViewModels
         #endregion
 
 
-        #region chap 06
+        #region chap 06-07
 
-        public INavigationService Navigation { get; set; }
-        public const string PageTitlePropertyName = "PageTitle";
+    //    public INavigationService Navigation { get; set; }
+    //    public const string PageTitlePropertyName = "PageTitle";
 
-        string pageTitle;
-        public string PageTitle
-        {
-            get => pageTitle;
-            set { pageTitle = value; OnPropertyChanged(); }
-        }
+    //    string pageTitle;
+    //    public string PageTitle
+    //    {
+    //        get => pageTitle;
+    //        set { pageTitle = value; OnPropertyChanged(); }
+    //    }
 
-        protected BaseViewModel(INavigationService navService)
-        {
-            Navigation = navService;
-        }
+    //    protected BaseViewModel(INavigationService navService)
+    //    {
+    //        Navigation = navService;
+    //    }
 
-        public abstract Task Init();
-        public event PropertyChangedEventHandler PropertyChanged;
+    //    public abstract Task Init();
+    //    public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+    //    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    }
+    //}
 
-    public abstract class BaseViewModel<TParam> : BaseViewModel
+    //public abstract class BaseViewModel<TParam> : BaseViewModel
+    //{
+    //    protected BaseViewModel(INavigationService navService) : base(navService)
+    //    {
+    //    }
+    //}
+    #endregion
+
+    #region chap 08
+    public INavigationService Navigation { get; set; }
+    public const string PageTitlePropertyName = "PageTitle";
+
+    string pageTitle;
+    public string PageTitle
     {
-        protected BaseViewModel(INavigationService navService) : base(navService)
-        {
-        }
+        get => pageTitle;
+        set { pageTitle = value; OnPropertyChanged(); }
     }
+
+    protected BaseViewModel(INavigationService navService)
+    {
+        Navigation = navService;
+    }
+
+    public abstract Task Init();
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    bool isProcessBusy;
+    public bool IsProcessBusy
+    {
+        get => isProcessBusy;
+        set { isProcessBusy = value; OnPropertyChanged(); }
+    }
+}
+
+public abstract class BaseViewModel<TParam> : BaseViewModel
+{
+    protected BaseViewModel(INavigationService navService) : base(navService)
+    {
+    }
+}
     #endregion
 }
 

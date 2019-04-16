@@ -1,7 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customEffect="clr-namespace:TrackMyWalksJP.CustomEffects"
+             xmlns:valueConverters="clr-namespace:TrackMyWalksJP.ValueConverters"
              x:Class="TrackMyWalksJP.Views.WalksMainPage">
+
+    <!--Add Chap 08-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <valueConverters:ImageConverter x:Key="imageConverter" />
+        </ResourceDictionary>
+        <!--END Add Chap 08-->
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Clicked="AddWalk_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -22,7 +32,7 @@
             </ListView>-->
             <!--chap 05 Originale-->
           
-                <ListView x:Name="WalkEntriesListView" RowHeight="80" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
+                <!--<ListView x:Name="WalkEntriesListView" RowHeight="80" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -41,7 +51,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>-->
             <!-- END chap04 -->
             <!--END chap 05 Originale-->
             <!-- chap 05 modify-->
@@ -67,6 +77,55 @@
                 </ListView.ItemTemplate>
             </ListView>-->
             <!-- END chap 05 modify-->
+            
+            <!--Chap 08 -->
+            <ListView x:Name="WalkEntriesListView" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEditItem" CommandParameter="{Binding .}" Text="Edit" IsDestructive="False" />
+                                <MenuItem Clicked="OnDeleteItem" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                            <StackLayout x:Name="cellLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <StackLayout.Padding>
+                                    <OnPlatform x:TypeArguments="Thickness">
+                                        <On Platform="Android, WinPhone" Value="0,0" />
+                                        <On Platform="iOS" Value="2,2" />
+                                    </OnPlatform>
+                                </StackLayout.Padding>
+                                <Image Aspect="AspectFill" Source="{Binding ImageUrl}" WidthRequest="140" HeightRequest="140" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                                <StackLayout x:Name="DetailsLayout" HorizontalOptions="FillAndExpand">
+                                    <StackLayout.Padding>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="Android, WinPhone" Value="5,0" />
+                                            <On Platform="iOS" Value="5,0" />
+                                        </OnPlatform>
+                                    </StackLayout.Padding>
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="Black" Style="{DynamicResource TitleStyle}">
+                                        <Label.FontSize>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, WinPhone" Value="14" />
+                                                <On Platform="iOS" Value="16" />
+                                            </OnPlatform>
+                                        </Label.FontSize>
+                                        <Label.Effects>
+                                            <customEffect:LabelShadowEffect />
+                                        </Label.Effects>
+                                    </Label>
+                                    <Label Text="{Binding Distance, StringFormat='Kilometers: {0} km'}" FontAttributes="Bold" TextColor="#666" Style="{DynamicResource CaptionStyle}" />
+                                    <Label Text="{Binding Difficulty, StringFormat='Difficulty: {0}'}" FontAttributes="Bold" TextColor="Black" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Image Aspect="AspectFit" HeightRequest="50" WidthRequest="50" HorizontalOptions="Start" Source="{Binding Difficulty, Converter={StaticResource imageConverter}}" />
+                                    <StackLayout Spacing="3" Orientation="Vertical">
+                                        <Label Text="{Binding Description}" FontAttributes="None" TextColor="Blue" VerticalOptions="FillAndExpand" Style="{DynamicResource BodyStyle}" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--End Chap 08 -->
 
         </StackLayout>
 
