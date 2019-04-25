@@ -147,7 +147,7 @@ namespace TrackMyWalksJP.Views
         //}
         #endregion
 
-        #region chap 06
+        #region chap 06 - 09
         // Return the Binding Context for the ViewModel
         WalksMainPageViewModel _viewModel => BindingContext as WalksMainPageViewModel;
 
@@ -195,6 +195,8 @@ namespace TrackMyWalksJP.Views
             {
                 // Remove Walk Item from our WalkListModel collection
                 _viewModel.WalksListModel.Remove(selectedItem);
+                await _viewModel.AzureDatabase.DeleteWalkEntryFirebase(Convert.ToInt32(selectedItem.Id));
+                await DisplayAlert("Delete Walk Entry Item",selectedItem.Title +" has been deleted from the database.", "OK");
             }
             else
                 return;
@@ -209,7 +211,36 @@ namespace TrackMyWalksJP.Views
             {
                 // Call the Init method to initialise the ViewModel
                 await _viewModel.Init();
+                if (!TwitterAuthDetails.isLoggedIn)
+                {
+                    // We need to Navigate and display our Twitter Sign In Page
+                    await _viewModel.Navigation.NavigateTo<TwitterSignInPageViewModel>();
+                }
             }
+
+            //chap 09
+           
+            // Create a FadingEntrance Animation to fade our WalkEntriesListView
+            WalkEntriesListView.Opacity = 0;
+            await WalkEntriesListView.FadeTo(1, 4000);
+            // Create a Custom Animation for our LoadingWalkInfo Label
+            // Create parent animation object
+            var parentAnimation = new Animation();
+            // Create "ZoomIn" animation and add to parent.
+            var ZoomInAnimation = new Animation(v => LoadingWalkInfo.Scale = v,
+                                                1, 2,
+                                                Easing.BounceIn, null);
+            parentAnimation.Add(0, 0.5, ZoomInAnimation);
+
+            // Create "ZoomOut" animation and add to parent.
+            var ZoomOutAnimation = new Animation(v => LoadingWalkInfo.Scale = v,
+                                                 2, 1,
+                                                 Easing.BounceOut, null);
+            parentAnimation.Insert(0.5, 1, ZoomOutAnimation);
+
+            // Commit parent animation
+            parentAnimation.Commit(this, "CustomAnimation", 16, 5000, null, null);
+            // end chap 09
 
             // Set up and initialise the binding for our ListView
             WalkEntriesListView.SetBinding(ItemsView<Cell>.ItemsSourceProperty, new Binding("."));

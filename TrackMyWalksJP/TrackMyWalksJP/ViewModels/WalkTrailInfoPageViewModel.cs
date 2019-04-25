@@ -37,7 +37,7 @@ namespace TrackMyWalksJP.ViewModels
         // Update each control on the WalkTrailInfoPage with values from our Model
         public string Title => App.SelectedItem.Title;
         public string Description => App.SelectedItem.Description;
-        public double Distance => App.SelectedItem.Distance;
+        public double Distance =>Convert.ToDouble( App.SelectedItem.Distance);
         public String Difficulty => App.SelectedItem.Difficulty;
         public String ImageUrl => App.SelectedItem.ImageUrl;
 

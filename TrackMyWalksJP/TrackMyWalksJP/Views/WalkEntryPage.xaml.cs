@@ -85,7 +85,7 @@ namespace TrackMyWalksJP.Views
             if (await DisplayAlert("Save Walk Entry Item", "Proceed and save changes?", "OK", "Cancel"))
             {
                 // Attempt to save and validate our Walk Entry Item
-                if (!_viewModel.ValidateFormDetailsAndSave())
+                if (! await _viewModel.ValidateFormDetailsAndSave())
                     // Error Saving - Must have Title and description
                     await DisplayAlert("Validation Error", "Title and Description are required.", "OK");
                 else
@@ -97,6 +97,26 @@ namespace TrackMyWalksJP.Views
                 // Navigate back to the Track My Walks Listing page
                 await _viewModel.Navigation.RemoveViewFromStack();
             }
+        }
+
+        //begin from  chap 09 Method to initialise our View Model when the ContentPage appears
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            //// Create a SwingingEntrance Animation for our WalkDetails TableView
+            //WalkDetails.RotationY = 180;
+            //await WalkDetails.RotateYTo(0, 1000, Easing.BounceOut);
+            //WalkDetails.AnchorX = 0.5;
+
+            // Create a Simple Animation to rotate our Difficulty Level Image
+            DifficultyLevel.AnchorY = (Math.Min(DifficultyLevel.Width, DifficultyLevel.Height) / 2) / DifficultyLevel.Height;
+            await DifficultyLevel.RotateTo(360, 2000, Easing.BounceOut);
+
+            // Create a SwingingEntrance Animation for our WalkDetails TableView
+            WalkDetails.RotationY = 180;
+            await WalkDetails.RotateYTo(0, 1000, Easing.BounceOut);
+            WalkDetails.AnchorX = 0.5;
         }
         #endregion
     }

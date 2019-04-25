@@ -4,11 +4,15 @@
               xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
               xmlns:local="clr-namespace:TrackMyWalksJP.Views.MapOverlay;assembly=TrackMyWalksJP" 
              x:Class="TrackMyWalksJP.Views.WalkDistancePage">
-    <!--Coming from Chap o7-->
+    <!--Coming from Chap 07- 12 -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="End Trail" Clicked="EndTrailButton_Clicked" />
+        <!-- chap 07-->
+        <!--<ToolbarItem Text="End Trail" Clicked="EndTrailButton_Clicked" />-->
+        <!-- chap 12 -->
+        <ToolbarItem Text="Options" Clicked="OptionsButton_Clicked"/>
     </ContentPage.ToolbarItems>
     <!-- END comming from chap 07-->
+    
     <ContentPage.Content>
         <!--Chap 04-->
         <!--<ScrollView Padding="10">

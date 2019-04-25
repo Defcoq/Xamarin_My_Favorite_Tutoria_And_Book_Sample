@@ -61,8 +61,8 @@
         </ScrollView>-->
         <!--END Chap 05-06-07-->
         
-        <!--Chap 08-->
-        <ScrollView>
+        <!--Chap 08 and 09 -->
+        <ScrollView x:Name="TrailInfoScrollView">
             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
             <StackLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">

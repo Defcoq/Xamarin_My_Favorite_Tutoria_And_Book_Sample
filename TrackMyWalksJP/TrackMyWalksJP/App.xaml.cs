@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TrackMyWalksJP.Models;
 using TrackMyWalksJP.Services;
 using TrackMyWalksJP.ViewModels;
@@ -48,7 +49,7 @@ namespace TrackMyWalksJP
         //}
         #endregion
 
-        #region chap 06
+        #region chap 06 -07-08-09-10-11-12
         public App()
         {
             InitializeComponent();
@@ -83,6 +84,7 @@ namespace TrackMyWalksJP
             NavService.RegisterViewMapping(typeof(WalkEntryPageViewModel), typeof(WalkEntryPage));
             NavService.RegisterViewMapping(typeof(WalkTrailInfoPageViewModel), typeof(WalkTrailInfoPage));
             NavService.RegisterViewMapping(typeof(WalkDistancePageViewModel), typeof(WalkDistancePage));
+            NavService.RegisterViewMapping(typeof(TwitterSignInPageViewModel), typeof(TwitterSignInPage));
         }
 
         // Declare our SelectedItem property that will store our Walk Trail details
@@ -90,6 +92,17 @@ namespace TrackMyWalksJP
 
         // Declare our NavService property that will be used to navigate between ViewModels
         public static NavigationService NavService { get; set; }
+        #region Twitter Sign In Page Property and Instance methods to remove and Navigate (Android Only)
+
+        // Action property method to remove our TwitterSignInPage from the NavigationStack
+        public static Action RemoveTwitterSignInPage => new Action(() => NavService.XFNavigation.PopAsync());
+
+        // Navigate to our WalksMainPage, once we have successfully signed in
+        public async static Task NavigateToWalksMainPage()
+        {
+            await NavService.XFNavigation.PushAsync(new WalksMainPage());
+        }
+        #endregion
 
         protected override void OnSleep()
         {

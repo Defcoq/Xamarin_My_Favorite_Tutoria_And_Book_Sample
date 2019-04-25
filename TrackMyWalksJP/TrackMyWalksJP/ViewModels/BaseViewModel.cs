@@ -75,6 +75,7 @@ namespace TrackMyWalksJP.ViewModels
 
     #region chap 08
     public INavigationService Navigation { get; set; }
+     public IRestWebService AzureDatabase { get; set; }
     public const string PageTitlePropertyName = "PageTitle";
 
     string pageTitle;
@@ -87,7 +88,8 @@ namespace TrackMyWalksJP.ViewModels
     protected BaseViewModel(INavigationService navService)
     {
         Navigation = navService;
-    }
+        AzureDatabase = new RestWebService();
+        }
 
     public abstract Task Init();
     public event PropertyChangedEventHandler PropertyChanged;

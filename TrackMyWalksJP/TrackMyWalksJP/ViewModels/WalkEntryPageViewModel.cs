@@ -9,6 +9,8 @@ namespace TrackMyWalksJP.ViewModels
 {
     public class WalkEntryPageViewModel : BaseViewModel
     {
+        // Handle Adding/Editing of Walk Entry Items
+        bool isAdding;
         #region chap 05
         //public WalkEntryPageViewModel()
         //{
@@ -100,29 +102,49 @@ namespace TrackMyWalksJP.ViewModels
                 PageTitle = "Adding Trail Details";
                 App.SelectedItem = new WalkDataModel();
 
+                // We are adding a new Walk Entry to our Azure Database
+                isAdding = true;
                 // Set the default values when creating a new Trail
                 Title = "New Trail Entry";
                 Difficulty = "Easy";
-                Distance = 1.0;
+                Distance =  1.0;
             }
             else
             {
                 // Otherwise, we must be editing an existing entry
                 PageTitle = "Editing Trail Details";
+                isAdding = false;
             }
         }
 
         // Checks to see if we have provided a Title and Description
-        public bool ValidateFormDetailsAndSave()
+        // Checks to see if we have provided a Title and Description
+        public async Task<bool> ValidateFormDetailsAndSave()
         {
-            if (App.SelectedItem != null && !string.IsNullOrEmpty(App.SelectedItem.Title) && !string.IsNullOrEmpty(App.SelectedItem.Description))
+            if (App.SelectedItem != null &&
+                !string.IsNullOrEmpty(App.SelectedItem.Title) &&
+                !string.IsNullOrEmpty(App.SelectedItem.Description) &&
+                !string.IsNullOrEmpty(App.SelectedItem.ImageUrl))
             {
-                // Save the selected item to our database and/or model
+                // Check our IsProcessBusy property to see if we are already processing
+                if (IsProcessBusy)
+                    return false;
+
+                // If we aren't processing, we need to set our IsProcessBusy property to true
+                IsProcessBusy = true;
+
+                // Save our Walk Entry details to our Microsoft Azure Database
+                await AzureDatabase.SaveWalkEntryFirebase(App.SelectedItem, isAdding);
+                IsProcessBusy = false;
             }
             else
             {
+                // Initialise our IsProcessBusy property to false
+                IsProcessBusy = false;
                 return false;
             }
+            // Initialise our IsProcessBusy property to false
+            IsProcessBusy = false;
             return true;
         }
 

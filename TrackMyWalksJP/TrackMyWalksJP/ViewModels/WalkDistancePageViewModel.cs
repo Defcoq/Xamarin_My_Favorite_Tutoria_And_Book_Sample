@@ -81,9 +81,9 @@ public WalkDistancePageViewModel(INavigationService navService) : base(navServic
         // Update each control on the WalkDistancePage with values from our Model
         public string Title => App.SelectedItem.Title;
         public string Description => App.SelectedItem.Description;
-        public double Latitude => App.SelectedItem.Latitude;
-        public double Longitude => App.SelectedItem.Longitude;
-        public double Distance => App.SelectedItem.Distance;
+        public double Latitude => Convert.ToDouble(App.SelectedItem.Latitude);
+        public double Longitude => Convert.ToDouble( App.SelectedItem.Longitude);
+        public double Distance => Convert.ToDouble(App.SelectedItem.Distance);
         public String Difficulty => App.SelectedItem.Difficulty;
         public String ImageUrl => App.SelectedItem.ImageUrl;
 

@@ -78,7 +78,21 @@
             </ListView>-->
             <!-- END chap 05 modify-->
             
-            <!--Chap 08 -->
+            <!--Chap 08 -09 -->
+            <ActivityIndicator IsRunning="true" x:Name="progressIndicator"              
+                                HorizontalOptions="CenterAndExpand" 
+                                VerticalOptions="CenterAndExpand" 
+                                IsVisible="{Binding IsProcessBusy}" />
+            <Label Text="Loading Walk Information..." FontAttributes="Bold" 
+                    TextColor="Black" HorizontalTextAlignment="Center" 
+                    IsVisible="{Binding IsProcessBusy}" x:Name="LoadingWalkInfo">
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android, WinPhone" Value="12" />
+                        <On Platform="iOS" Value="14" />
+                    </OnPlatform>
+                </Label.FontSize>
+            </Label>
             <ListView x:Name="WalkEntriesListView" HasUnevenRows="true" SeparatorColor="#ddd" ItemTapped="myWalkEntries_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>

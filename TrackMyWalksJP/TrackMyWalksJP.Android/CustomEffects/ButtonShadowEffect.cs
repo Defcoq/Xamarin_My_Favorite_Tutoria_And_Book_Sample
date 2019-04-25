@@ -31,7 +31,7 @@ namespace TrackMyWalksJP.Droid.CustomEffects
 
         protected override void OnDetached()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }
